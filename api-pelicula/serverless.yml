@@ -1,0 +1,52 @@
+org: diegoladrondeguevara
+service: api-pelicula
+frameworkVersion: '3'
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!package.json'
+    - '!package-lock.json'
+    - '!__pycache__/**'
+    - '!*.pyc'
+    - '!.serverlessrc'
+    - '!.tmp-serverless/**'
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 30
+  iam:
+    role: arn:aws:iam::904208419583:role/LabRole
+  environment:
+    TABLE_NAME: ${sls:stage}-t_peliculas
+
+functions:
+  crear:
+    handler: CrearPelicula.lambda_handler
+    events:
+      - http:
+          path: pelicula/crear
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    TablaPeliculas:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: tenant_id
+            AttributeType: S
+          - AttributeName: uuid
+            AttributeType: S
+        KeySchema:
+          - AttributeName: tenant_id
+            KeyType: HASH
+          - AttributeName: uuid
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST

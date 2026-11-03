@@ -1,0 +1,9 @@
+{
+    "tenant_id": "CINEPLANET",
+    "pelicula_datos": {
+        "nombre": "Super-Man: La Historia de Christopher Ree",
+        "fecha": 2024,
+        "genero": "Documental",
+        "duracion_minutos": 104
+    }
+}

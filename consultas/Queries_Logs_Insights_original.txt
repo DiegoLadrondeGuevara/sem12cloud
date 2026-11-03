@@ -1,0 +1,25 @@
+fields @timestamp, @message
+| sort @timestamp asc
+
+fields @timestamp, @message, @billedDuration, @memorySize, @requestId
+| sort @timestamp asc
+| filter @type = "REPORT"
+
+fields @timestamp, @message, pelicula_datos.nombre, pelicula_datos.genero, pelicula_datos.fecha, pelicula_datos.duracion_minutos
+| sort @timestamp asc
+| filter tenant_id = "CINEPLANET"
+
+fields @timestamp, @message, pelicula_datos.nombre, pelicula_datos.genero, pelicula_datos.fecha, pelicula_datos.duracion_minutos
+| sort pelicula_datos.duracion_minutos desc
+| filter tenant_id = "CINEPLANET"
+
+fields @timestamp, @message, pelicula_datos.nombre, pelicula_datos.genero, pelicula_datos.fecha, pelicula_datos.duracion_minutos
+| sort pelicula_datos.duracion_minutos desc
+| filter tenant_id = "CINEPLANET" and pelicula_datos.genero = "Terror"
+
+filter tenant_id = "CINEPLANET"
+| stats count(*) by pelicula_datos.genero as genero
+
+fields @timestamp, @message
+| sort @timestamp asc
+| filter @message like "ERROR"

@@ -1,0 +1,9 @@
+{
+    "tenant_id": "CINEPLANET",
+    "pelicula_datos": {
+        "nombre": "Dalia y el Libro Rojo",
+        "fecha": 2023,
+        "genero": "Animacion",
+        "duracion_minutos": 110
+    }
+}

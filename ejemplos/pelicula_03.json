@@ -1,0 +1,9 @@
+{
+    "tenant_id": "CINEPLANET",
+    "pelicula_datos": {
+        "nombre": "Godzilla Minus One Blanco y Negro",
+        "fecha": 2023,
+        "genero": "Accion",
+        "duracion_minutos": 130
+    }
+}

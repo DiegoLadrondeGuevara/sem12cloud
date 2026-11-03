@@ -1,0 +1,9 @@
+{
+    "tenant_id": "CINEPLANET",
+    "pelicula_datos": {
+        "nombre": "El Apocalipsis de San Juan",
+        "fecha": 2023,
+        "genero": "Documental",
+        "duracion_minutos": 120
+    }
+}

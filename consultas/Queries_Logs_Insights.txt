@@ -1,0 +1,45 @@
+Grupo de logs: /aws/lambda/api-pelicula-dev-crear
+
+1. Todos los eventos y metricas de Lambda
+fields @timestamp, @message
+| sort @timestamp asc
+
+2. Duracion y memoria de las invocaciones
+fields @timestamp, @billedDuration, @memorySize, @requestId
+| filter @type = "REPORT"
+| sort @timestamp asc
+
+3. Peliculas creadas por CINEPLANET (nuevo formato JSON)
+fields @timestamp, log_datos.tenant_id, log_datos.pelicula_datos.nombre,
+       log_datos.pelicula_datos.genero, log_datos.pelicula_datos.fecha,
+       log_datos.pelicula_datos.duracion_minutos
+| filter tipo = "INFO" and log_datos.tenant_id = "CINEPLANET"
+| sort @timestamp asc
+
+4. Peliculas por duracion descendente
+fields @timestamp, log_datos.pelicula_datos.nombre,
+       log_datos.pelicula_datos.duracion_minutos
+| filter tipo = "INFO" and log_datos.tenant_id = "CINEPLANET"
+| sort log_datos.pelicula_datos.duracion_minutos desc
+
+5. Peliculas de Terror
+fields @timestamp, log_datos.pelicula_datos.nombre,
+       log_datos.pelicula_datos.genero
+| filter tipo = "INFO" and log_datos.tenant_id = "CINEPLANET"
+  and log_datos.pelicula_datos.genero = "Terror"
+| sort @timestamp asc
+
+6. Conteo por genero
+filter tipo = "INFO" and log_datos.tenant_id = "CINEPLANET"
+| stats count(*) as total by log_datos.pelicula_datos.genero
+| sort total desc
+
+7. Errores del formato estandar
+fields @timestamp, tipo, log_datos.error, log_datos.error_tipo,
+       log_datos.request_id
+| filter tipo = "ERROR"
+| sort @timestamp desc
+
+8. Resumen INFO y ERROR
+filter tipo in ["INFO", "ERROR"]
+| stats count(*) as total by tipo

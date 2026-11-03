@@ -1,0 +1,9 @@
+{
+    "tenant_id": "CINEPLANET",
+    "pelicula_datos": {
+        "nombre": "La Sustancia",
+        "fecha": 2024,
+        "genero": "Terror",
+        "duracion_minutos": 140
+    }
+}

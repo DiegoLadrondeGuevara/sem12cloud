@@ -1,0 +1,7 @@
+{
+  "name": "sem12cloud-api-pelicula",
+  "private": true,
+  "devDependencies": {
+    "serverless": "^3.40.0"
+  }
+}
